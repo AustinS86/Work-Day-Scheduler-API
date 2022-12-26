@@ -15,23 +15,25 @@ $(function updateTime() {
     var timeslot5pm = ("#hour-5");
     var container = $(".container-lg px-5");
     var saveBtn = $(".saveBtn");
-    var timeslotArray = [
+    var timeslotElArray = [
         timeslot9am,timeslot10am,timeslot11am,timeslot12pm,timeslot1pm,timeslot2pm,timeslot3pm,timeslot4pm,timeslot5pm];
     $("#currentDay").text(today.format("dddd, MMMM D h:mm"));
+
+
     
     
     var today = dayjs().format("fpp")
-    for (let i = 0; i < timeslotArray.length; i++){
-        timeslotArray[i].removeClass("future past present");
+    for (let i = 0; i < timeslotElArray.length; i++){
+        timeslotElArray[i].removeClass("future past present");
 
-        if(today > timeslotArray[i].time("hour")){
-            timeslotArray[i].addClass("past");
+        if(today > timeslotElArray[i].data("hour")){
+            timeslotElArray[i].addClass("past");
         
-        }else if (today === timeslotArray[i].attr("hour")){
-            timeslotArray[i].addClass("present");
+        }else if (today === timeslotElArray[i].attr("hour")){
+            timeslotElArray[i].addClass("present");
 
         }else{
-            timeslotArray[i].addClass("future");
+            timeslotElArray[i].addClass("future");
         
         }
     }
@@ -56,7 +58,10 @@ $(function updateTime() {
     // attribute of each time-block be used to do this?
     //
     // TODO: Add code to display the today date in the header of the page.
-   
+   function submit(event){
+    event.preventdefault();
+    
+   }
     
 saveBtn.on("click", submit);
 });
