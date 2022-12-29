@@ -34,31 +34,26 @@ $(function updateTime() {
         }
     }
 
-    $("#hour-9 .decription").val(localStorage.getItem("hour-9"));
-    $("#hour-10 .decription").val(localStorage.getItem("hour-10"));
-    $("#hour-11.decription").val(localStorage.getItem("hour-11"));
-    $("#hour-12.decription").val(localStorage.getItem("hour12"));
-    $("#hour-1.decription").val(localStorage.getItem("hour-1"));
-    $("#hour-2 .decription").val(localStorage.getItem("hour-2"));
-    $("#hour-3 .decription").val(localStorage.getItem("hour-3"));
-    $("#hour-4 .decription").val(localStorage.getItem("hour-4"));
-    $("#hour-5 .decription").val(localStorage.getItem("hour-5"));
+    $("#hour-9  ").val(localStorage.getItem(".hours"));
+    $("#hour-10 ").val(localStorage.getItem("hours"));
+    $("#hour-11").val(localStorage.getItem("hour"));
+    $("#hour-12").val(localStorage.getItem("hours"));
+    $("#hour-1").val(localStorage.getItem("hours"));
+    $("#hour-2 ").val(localStorage.getItem("hours"));
+    $("#hour-3 ").val(localStorage.getItem("hours"));
+    $("#hour-4 ").val(localStorage.getItem("hours"));
+    $("#hour-5 ").val(localStorage.getItem("hours"));
     $(".saveBtn").on("click", function () {
-
-        var textarea = $(this).siblings(".description").val();
+        saveBtn.on("click", submit);
+        var textarea = $(this).siblings(".hours").val();
         var time = $(this).parent().attr("id");
 
         localStorage.setItem(textarea, time);
-
+ 
     })
+   
     
-    //function submit(event){
-       // event.preventdefault();
-        
-      // }
-        
-    saveBtn.on("click", submit);
-    //});
+    });
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
     // local storage. HINT: What does `this` reference in the click listener
