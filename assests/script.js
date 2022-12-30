@@ -2,6 +2,13 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
+// import localizedFormat from ('dayjs/plugin/localizedFormat')
+// var localizedFormat = require('dayjs/plugin/localizedFormat');
+// console.log(localizedFormat);
+// dayjs.extend(localizedFormat);
+//console.log(dayjs().format('llll'))
+// console.log(dayjs().format('LLLL'))
+
 $(function updateTime() {
     var today = dayjs();
     var timeslot9am = ("#hour-9");
@@ -14,27 +21,11 @@ $(function updateTime() {
     var timeslot4pm = ("#hour-4");
     var timeslot5pm = ("#hour-5");
     var saveBtn = $(".saveBtn");
-    var timeslotElArray = [
+    var timeslotArray = [
         timeslot9am,timeslot10am,timeslot11am,timeslot12pm,timeslot1pm,timeslot2pm,timeslot3pm,timeslot4pm,timeslot5pm];
-    $("#currentDay").text(today.format("dddd, MMMM D YYYY h:mm"));
-        
-    var current = dayjs().format("#currentDay");
-    for (let i = 0; i < timeslotElArray.length; i++){
-       timeslotElArray[i].removeClass("#past, #present, #future");
-
-    if(current > timeslotElArray[i].attr("hour")){
-            timeslotElArray[i].addClass("past");
-        
-        }else if (current === timeslotElArray[i].attr("hour")){
-            timeslotElArray[i].addClass("present");
-
-        }else{
-           timeslotElArray[i].addClass("future");
-        
-        }
-    }
-
-    $("#hour-9  ").val(localStorage.getItem(".hours"));
+    $("#currentDay").text(today.format("dddd, MMMM D YYYY h:mm:ss"));
+    
+    $("#hour-9  ").val(localStorage.getItem("hours"));
     $("#hour-10 ").val(localStorage.getItem("hours"));
     $("#hour-11").val(localStorage.getItem("hour"));
     $("#hour-12").val(localStorage.getItem("hours"));
@@ -44,16 +35,48 @@ $(function updateTime() {
     $("#hour-4 ").val(localStorage.getItem("hours"));
     $("#hour-5 ").val(localStorage.getItem("hours"));
     $(".saveBtn").on("click", function () {
-        saveBtn.on("click", submit);
+        console.log("saveBtn");
+        saveBtn.on("click", timeslotArray );
         var textarea = $(this).siblings(".hours").val();
         var time = $(this).parent().attr("id");
+
+        //console.log(textarea, time);
 
         localStorage.setItem(textarea, time);
  
     })
    
-    
-    });
+    function timeChange(){
+        var currentHour = dayjs().hour();
+        console.log(currentHour)
+        $('.time-block').each(function(){
+            console.log($(this));
+            console.log($(this).attr("id").split('-')[1]);
+            var Time = parseInt($(this).attr("id").split('-')[1]);  // --> [hour, 9]
+            
+           // console.log(Time);
+            //console.log(typeof Time);
+
+            if (Time < currentHour){
+                $(this).addClass("past");
+            } else if (Time === currentHour){
+                $(this).addClass("present");
+                $(this).removeClass("past");
+            } else {$(this).addClass("future");
+            $(this).removeClass("past");
+            $(this).removeClass("present");
+        }
+    })
+}
+timeChange();
+
+
+setInterval(function() {
+    $("#currentDay").text(dayjs().format("dddd, MMMM D YYYY h:mm:ss"));
+}, 1000)
+ 
+});
+   
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
     // local storage. HINT: What does `this` reference in the click listener
@@ -72,4 +95,5 @@ $(function updateTime() {
     // attribute of each time-block be used to do this?
     //
     // TODO: Add code to display the day date in the header of the page.
+
 
