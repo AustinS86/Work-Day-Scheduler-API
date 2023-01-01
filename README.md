@@ -26,4 +26,4 @@ https://austins86.github.io/Work-Day-Scheduler-API/
 
 ## Screenshot
 
-![Screenshot](assests\Images\Work-Day-Scheduler-API.png)
+![Work-Day-Scheduler-API](https://user-images.githubusercontent.com/117120566/210184352-b6086fe9-e494-4c03-bb21-7d555dcf4599.png)
